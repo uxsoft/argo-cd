@@ -40,7 +40,7 @@ interface EditablePanelState {
     collapsed: boolean;
 }
 
-require('./editable-panel.scss');
+import './editable-panel.scss';
 
 export class EditablePanel<T = {}> extends React.Component<EditablePanelProps<T>, EditablePanelState> {
     private formApi: FormApi;

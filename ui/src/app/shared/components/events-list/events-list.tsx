@@ -4,7 +4,7 @@ import {ago} from 'argo-ui/v2';
 
 import * as models from '../../models';
 
-require('./events-list.scss');
+import './events-list.scss';
 
 function timestampSort(first: models.Event, second: models.Event): number {
     if (first.lastTimestamp && !second.lastTimestamp) {

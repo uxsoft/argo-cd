@@ -14,7 +14,7 @@ import {CheckboxField, COLORS, ErrorNotification, Revision} from '../../shared/c
 import * as appModels from '../../shared/models';
 import {services} from '../../shared/services';
 
-require('./utils.scss');
+import './utils.scss';
 
 export interface NodeId {
     kind: string;

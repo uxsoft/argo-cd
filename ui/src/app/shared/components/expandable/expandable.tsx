@@ -1,7 +1,7 @@
 import * as classNames from 'classnames';
 import * as React from 'react';
 
-require('./expandable.scss');
+import './expandable.scss';
 
 export interface Props extends React.Props<any> {
     height?: number;

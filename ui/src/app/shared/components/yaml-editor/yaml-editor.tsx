@@ -5,9 +5,9 @@ import * as React from 'react';
 
 import {Consumer} from '../../context';
 import {MonacoEditor} from '../monaco-editor';
+import jsonMergePatch from 'json-merge-patch';
 
-const jsonMergePatch = require('json-merge-patch');
-require('./yaml-editor.scss');
+import './yaml-editor.scss';
 
 export class YamlEditor<T> extends React.Component<
     {

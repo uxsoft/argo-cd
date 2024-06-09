@@ -22,7 +22,7 @@ import {ResourceLabel} from '../resource-label';
 import * as AppUtils from '../utils';
 import './resource-details.scss';
 
-const jsonMergePatch = require('json-merge-patch');
+import jsonMergePatch from 'json-merge-patch';
 
 interface ResourceDetailsProps {
     selectedNode: ResourceNode;

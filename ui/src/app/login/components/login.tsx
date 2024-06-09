@@ -10,7 +10,7 @@ import { AuthSettings } from '../../shared/models';
 import { services } from '../../shared/services';
 import { getPKCERedirectURI, pkceLogin } from './utils';
 
-require('./login.scss');
+import './login.scss';
 
 export interface LoginForm {
     username: string;
@@ -70,6 +70,8 @@ const Login: React.FC<RouteComponentProps<{}>> = (props) => {
         <div className='login'>
             <div className='login__content show-for-medium'>
                 <div className='login__text'>Let's get stuff deployed!</div>
+                <div className='login__text'>Let's get stuff deployed!</div>
+
                 <div className='argo__logo' />
             </div>
             <div className='login__box'>

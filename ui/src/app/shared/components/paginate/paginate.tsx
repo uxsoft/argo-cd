@@ -4,7 +4,7 @@ import * as React from 'react';
 import ReactPaginate from 'react-paginate';
 import {services} from '../../services';
 
-require('./paginate.scss');
+import './paginate.scss';
 
 export interface SortOption<T> {
     title: string;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-require('./empty-state.scss');
+import './empty-state.scss';
 
 export const EmptyState = ({icon, children}: {icon: string; children: React.ReactNode}) => (
     <div className='empty-state'>

@@ -16,7 +16,7 @@ interface TagsInputState {
     focused: boolean;
 }
 
-require('./tags-input.scss');
+import './tags-input.scss';
 
 export class TagsInput extends React.Component<TagsInputProps, TagsInputState> {
     public static getDerivedStateFromProps(props: TagsInputProps, state: TagsInputState) {
