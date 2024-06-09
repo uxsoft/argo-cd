@@ -5,7 +5,7 @@ import * as React from 'react';
 import {Context} from '../shared/context';
 import {services, ViewPreferences} from '../shared/services';
 
-require('./sidebar.scss');
+import './sidebar.scss';
 
 interface SidebarProps {
     onVersionClick: () => void;

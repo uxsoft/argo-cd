@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Sidebar} from '../../../sidebar/sidebar';
 import {ViewPreferences} from '../../services';
 
-require('./layout.scss');
+import './layout.scss';
 
 export interface LayoutProps {
     navItems: Array<{path: string; iconClassName: string; title: string}>;

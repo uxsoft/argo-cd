@@ -9,7 +9,7 @@ import {AppContext} from '../../../shared/context';
 import * as models from '../../../shared/models';
 import {services} from '../../../shared/services';
 
-require('./gpgkeys-list.scss');
+import './gpgkeys-list.scss';
 
 interface NewGnuPGPublicKeyParams {
     keyData: string;

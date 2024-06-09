@@ -10,7 +10,7 @@ import {services} from '../../../shared/services';
 
 import {convertExpiresInToSeconds, validExpiresIn} from '../utils';
 
-require('./account-details.scss');
+import './account-details.scss';
 
 export const AccountDetails = (props: RouteComponentProps<{name: string}>) => {
     const ctx = React.useContext(Context);

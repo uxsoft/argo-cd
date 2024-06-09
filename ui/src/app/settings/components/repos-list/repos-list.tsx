@@ -11,7 +11,7 @@ import * as models from '../../../shared/models';
 import {services} from '../../../shared/services';
 import {RepoDetails} from '../repo-details/repo-details';
 
-require('./repos-list.scss');
+import './repos-list.scss';
 
 interface NewSSHRepoParams {
     type: string;

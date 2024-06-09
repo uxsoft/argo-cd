@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as ReactForm from 'react-form';
 import {SyncWindow} from '../../../shared/models';
 
-require('./project-sync-windows-edit.scss');
+import './project-sync-windows-edit.scss';
 interface ProjectSyncWindowProps {
     projName: string;
     window: SyncWindow;

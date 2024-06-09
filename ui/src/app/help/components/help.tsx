@@ -6,7 +6,7 @@ import {services} from '../../shared/services';
 import {map} from 'rxjs/operators';
 import classNames from 'classnames';
 
-require('./help.scss');
+import './help.scss';
 
 export const Help = () => {
     return (

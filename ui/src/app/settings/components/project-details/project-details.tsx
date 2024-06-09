@@ -18,7 +18,7 @@ import {ProjectSyncWindowsEditPanel} from '../project-sync-windows-edit-panel/pr
 import {ResourceListsPanel} from './resource-lists-panel';
 import {DeepLinks} from '../../../shared/components/deep-links';
 
-require('./project-details.scss');
+import './project-details.scss';
 
 interface ProjectDetailsState {
     token: string;

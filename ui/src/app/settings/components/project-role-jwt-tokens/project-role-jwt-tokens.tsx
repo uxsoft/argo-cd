@@ -18,7 +18,7 @@ interface ProjectRoleJWTTokensProps {
     getApi?: (formApi: FormApi) => void;
 }
 
-require('./project-role-jwt-tokens.scss');
+import './project-role-jwt-tokens.scss';
 
 export const ProjectRoleJWTTokens = (props: ProjectRoleJWTTokensProps) => {
     return (

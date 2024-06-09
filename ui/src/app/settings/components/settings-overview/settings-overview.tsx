@@ -4,7 +4,7 @@ import * as React from 'react';
 import {Page} from '../../../shared/components';
 import {AppContext} from '../../../shared/context';
 
-require('./settings-overview.scss');
+import './settings-overview.scss';
 
 const settings = [
     {

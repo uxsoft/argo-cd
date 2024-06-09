@@ -9,7 +9,7 @@ import {AppContext} from '../../../shared/context';
 import * as models from '../../../shared/models';
 import {services} from '../../../shared/services';
 
-require('./certs-list.scss');
+import './certs-list.scss';
 
 interface NewTLSCertParams {
     serverName: string;

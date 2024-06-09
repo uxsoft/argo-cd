@@ -2,7 +2,7 @@ import * as React from 'react';
 import {DataLoader, Page} from '../../../shared/components';
 import {services} from '../../../shared/services';
 
-require('./appearance-list.scss');
+import './appearance-list.scss';
 
 export const AppearanceList = () => {
     return (

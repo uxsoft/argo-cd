@@ -4,7 +4,7 @@ import * as React from 'react';
 import {services} from '../../../shared/services';
 import {Context} from '../../context';
 
-require('./badge-panel.scss');
+import './badge-panel.scss';
 
 export const BadgePanel = ({app, project, appNamespace, nsEnabled}: {app?: string; project?: string; appNamespace?: string; nsEnabled?: boolean}) => {
     const [badgeType, setBadgeType] = React.useState('URL');
