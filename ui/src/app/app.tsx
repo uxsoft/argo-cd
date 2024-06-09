@@ -20,6 +20,8 @@ import userInfo from './user-info';
 import { AuthSettings } from './shared/models';
 import { PKCEVerification } from './login/components/pkce-verify';
 
+import "../assets/input.css";
+
 services.viewPreferences.init();
 const bases = document.getElementsByTagName('base');
 const base = bases.length > 0 ? bases[0].getAttribute('href') || '/' : '/';

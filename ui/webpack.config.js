@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -14,6 +15,7 @@ console.log(`Bundling in ${isProd ? 'production' : 'development'}...`);
 const config = {
     entry: './src/app/index.tsx',
     devServer: {
+        overlay: false,
         hot: !isProd
     },
     output: {
@@ -53,11 +55,12 @@ const config = {
             },
             {
                 test: /\.css$/,
-                use: [{ loader: "style-loader", options: { esModule: false } }, 'css-loader', 'postcss-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
             }
         ]
     },
     plugins: [
+        new MiniCssExtractPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
             'process.env.NODE_ONLINE_ENV': JSON.stringify(process.env.NODE_ONLINE_ENV || 'offline'),
