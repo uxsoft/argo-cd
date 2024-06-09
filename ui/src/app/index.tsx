@@ -1,10 +1,19 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import * as Moment from 'moment';
-import {App} from './app';
+import { App } from './app';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+import { ThemeProvider } from "@material-tailwind/react";
 
+const root = createRoot(document.getElementById("app"));
+
+root.render(
+    //   <React.StrictMode>
+    <ThemeProvider>
+        <App />
+    </ThemeProvider>
+    //   </React.StrictMode>
+);
 (window as any).React = React;
-(window as any).ReactDOM = ReactDOM;
+// (window as any).ReactDOM = ReactDOM;
 (window as any).Moment = Moment;

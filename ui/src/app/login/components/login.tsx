@@ -1,14 +1,14 @@
-import { FormField, NotificationType } from 'argo-ui';
-// import * as PropTypes from 'prop-types';
+import { NotificationType } from 'argo-ui';
 import * as React from 'react';
 import { useEffect, useState, useContext } from 'react';
-import { Form, Text } from 'react-form';
+import { useForm } from "react-hook-form"
 import { RouteComponentProps } from 'react-router';
 
 import { ArgoCDContext } from '../../shared/context';
 import { AuthSettings } from '../../shared/models';
 import { services } from '../../shared/services';
 import { getPKCERedirectURI, pkceLogin } from './utils';
+import { Button, Input } from "@material-tailwind/react";
 
 import './login.scss';
 
@@ -42,16 +42,16 @@ const Login: React.FC<RouteComponentProps<{}>> = (props) => {
         fetchAuthSettings();
     }, [props.history.location.search]);
 
-    const login = async (username: string, password: string, returnURL: string) => {
-        console.log("Logging in", appContext);
+    const login = async (form: { username: string, password: string, returnURL: string }) => {
+        console.log("Logging in ", form)
         try {
             setLoginError('');
             setLoginInProgress(true);
             appContext.navigation.goto('.', { sso_error: null });
-            await services.users.login(username, password);
+            await services.users.login(form.username, form.password);
             setLoginInProgress(false);
-            if (returnURL) {
-                const url = new URL(returnURL);
+            if (form.returnURL) {
+                const url = new URL(form.returnURL);
                 appContext.navigation.goto(url.pathname + url.search);
             } else {
                 appContext.navigation.goto('/applications');
@@ -66,10 +66,11 @@ const Login: React.FC<RouteComponentProps<{}>> = (props) => {
         authSettings &&
         ((authSettings.dexConfig && (authSettings.dexConfig.connectors || []).length > 0) || authSettings.oidcConfig);
 
+    const loginForm = useForm();
+
     return (
         <div className='login'>
             <div className='login__content show-for-medium'>
-                <div className='login__text'>Let's get stuff deployed!</div>
                 <div className='login__text'>Let's get stuff deployed!</div>
 
                 <div className='argo__logo' />
@@ -83,15 +84,15 @@ const Login: React.FC<RouteComponentProps<{}>> = (props) => {
                         <a
                             {...(authSettings?.oidcConfig?.enablePKCEAuthentication
                                 ? {
-                                      onClick: async () => {
-                                          pkceLogin(authSettings.oidcConfig, getPKCERedirectURI().toString()).catch((err) => {
-                                              appContext.notifications.show({
-                                                  type: NotificationType.Error,
-                                                  content: err?.message || JSON.stringify(err),
-                                              });
-                                          });
-                                      },
-                                  }
+                                    onClick: async () => {
+                                        pkceLogin(authSettings.oidcConfig, getPKCERedirectURI().toString()).catch((err) => {
+                                            appContext.notifications.show({
+                                                type: NotificationType.Error,
+                                                content: err?.message || JSON.stringify(err),
+                                            });
+                                        });
+                                    },
+                                }
                                 : { href: `auth/login?return_url=${encodeURIComponent(returnUrl)}` })}
                         >
                             <button className='argo-button argo-button--base argo-button--full-width argo-button--xlg'>
@@ -110,47 +111,21 @@ const Login: React.FC<RouteComponentProps<{}>> = (props) => {
                     </div>
                 )}
                 {authSettings && !authSettings.userLoginsDisabled && (
-                    <Form
-                        onSubmit={(params: LoginForm) => login(params.username, params.password, returnUrl)}
-                        onSubmitFailure={(params) => console.log(params)}
-                        validateError={(params: LoginForm) => ({
-                            username: !params.username && 'Username is required',
-                            password: !params.password && 'Password is required',
-                        })}
-                    >
-                        {(formApi) => (
-                            <form role='form' className='width-control' onSubmit={formApi.submitForm}>
-                                <div className='argo-form-row'>
-                                    <FormField
-                                        formApi={formApi}
-                                        label='Username'
-                                        field='username'
-                                        component={Text}
-                                        componentProps={{ autoCapitalize: 'none' }}
-                                    />
-                                </div>
-                                <div className='argo-form-row'>
-                                    <FormField
-                                        formApi={formApi}
-                                        label='Password'
-                                        field='password'
-                                        component={Text}
-                                        componentProps={{ type: 'password' }}
-                                    />
-                                    {loginError && <div className='argo-form-row__error-msg'>{loginError}</div>}
-                                </div>
-                                <div className='login__form-row'>
-                                    <button
-                                        disabled={loginInProgress}
-                                        className='argo-button argo-button--full-width argo-button--xlg'
-                                        type='submit'
-                                    >
-                                        Sign In
-                                    </button>
-                                </div>
-                            </form>
-                        )}
-                    </Form>
+
+                    <form role='form' className='flex flex-col gap-6 mt-6' onSubmit={loginForm.handleSubmit(login)}>
+                        <Input {...loginForm.register("username")} autoCapitalize='none' label='Username' />
+                        <Input {...loginForm.register("password")} type="password" label='Password' />
+                        <input {...loginForm.register("returnURL")} type='hidden' value={returnUrl} />
+                        {loginError && <div className='argo-form-row__error-msg'>{loginError}</div>}
+                        <Button
+                            disabled={loginInProgress}
+                            fullWidth
+                            type='submit'
+                            color='blue-gray'
+                        >
+                            Sign In
+                        </Button>
+                    </form>
                 )}
                 {authSettings && authSettings.userLoginsDisabled && !ssoConfigured && (
                     <div className='argo-form-row__error-msg'>Login is disabled. Please contact your system administrator.</div>
