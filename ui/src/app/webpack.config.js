@@ -9,11 +9,6 @@ const isProd = process.env.NODE_ENV === 'production';
 
 console.log(`Bundling in ${isProd ? 'production' : 'development'}...`);
 
-const proxyConf = {
-    target: process.env.ARGOCD_API_URL || 'http://localhost:8080',
-    secure: false
-};
-
 const config = {
     entry: './src/app/index.tsx',
     output: {
@@ -70,25 +65,25 @@ const config = {
         new HtmlWebpackPlugin({ template: 'src/app/index.html' }),
         new CopyWebpackPlugin({
             patterns: [{
-                    from: 'src/assets',
-                    to: 'assets'
-                },
-                {
-                    from: 'node_modules/argo-ui/src/assets',
-                    to: 'assets'
-                },
-                {
-                    from: 'node_modules/@fortawesome/fontawesome-free/webfonts',
-                    to: 'assets/fonts'
-                },
-                {
-                    from: 'node_modules/redoc/bundles/redoc.standalone.js',
-                    to: 'assets/scripts/redoc.standalone.js'
-                },
-                {
-                    from: 'node_modules/monaco-editor/min/vs/base/browser/ui/codicons/codicon',
-                    to: 'assets/fonts'
-                }
+                from: 'src/assets',
+                to: 'assets'
+            },
+            {
+                from: 'node_modules/argo-ui/src/assets',
+                to: 'assets'
+            },
+            {
+                from: 'node_modules/@fortawesome/fontawesome-free/webfonts',
+                to: 'assets/fonts'
+            },
+            {
+                from: 'node_modules/redoc/bundles/redoc.standalone.js',
+                to: 'assets/scripts/redoc.standalone.js'
+            },
+            {
+                from: 'node_modules/monaco-editor/min/vs/base/browser/ui/codicons/codicon',
+                to: 'assets/fonts'
+            }
             ]
         }),
         new MonacoWebpackPlugin({
@@ -103,21 +98,22 @@ const config = {
         },
         port: 4000,
         host: process.env.ARGOCD_E2E_YARN_HOST || 'localhost',
-        proxy: {
-            '/extensions': proxyConf,
-            '/api': proxyConf,
-            '/auth': proxyConf,
-            '/terminal': {
-              target: process.env.ARGOCD_API_URL || 'ws://localhost:8080',
-              ws: true,
+        proxy: [
+            {
+                context: ['/extensions', '/api', '/auth', '/swagger-ui', '/swagger.json'],
+                target: process.env.ARGOCD_API_URL || 'http://localhost:8080',
+                secure: false
             },
-            '/swagger-ui': proxyConf,
-            '/swagger.json': proxyConf
-        }
+            {
+                context: ['/terminal'],
+                target: process.env.ARGOCD_API_URL || 'ws://localhost:8080',
+                ws: true,
+            },
+        ]
     }
 };
 
-if (! isProd) {
+if (!isProd) {
     config.devtool = 'eval-source-map';
 }
 
