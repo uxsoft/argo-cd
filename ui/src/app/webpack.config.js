@@ -3,6 +3,8 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
 const webpack = require('webpack');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -11,6 +13,9 @@ console.log(`Bundling in ${isProd ? 'production' : 'development'}...`);
 
 const config = {
     entry: './src/app/index.tsx',
+    devServer: {
+        hot: !isProd
+    },
     output: {
         filename: '[name].[contenthash].js',
         chunkFilename: '[name].[contenthash].chunk.js',
@@ -44,11 +49,11 @@ const config = {
             },
             {
                 test: /\.scss$/,
-                use: ['style-loader', 'raw-loader', 'sass-loader']
+                use: [{ loader: "style-loader", options: { esModule: false } }, 'raw-loader', 'sass-loader']
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'raw-loader']
+                use: [{ loader: "style-loader", options: { esModule: false } }, 'css-loader', 'postcss-loader']
             }
         ]
     },
@@ -89,7 +94,8 @@ const config = {
         new MonacoWebpackPlugin({
             // https://github.com/microsoft/monaco-editor-webpack-plugin#options
             languages: ['yaml']
-        })
+        }),
+        new ReactRefreshWebpackPlugin()
     ],
     devServer: {
         compress: false,
