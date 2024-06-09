@@ -365,7 +365,7 @@ lint-ui: test-tools-image
 
 .PHONY: lint-ui-local
 lint-ui-local:
-	cd ui && yarn lint
+	cd ui && bun lint
 
 # Build all Go code
 .PHONY: build
@@ -581,7 +581,7 @@ dep-ui: test-tools-image
 	$(call run-in-test-client,make dep-ui-local)
 
 dep-ui-local:
-	cd ui && yarn install
+	cd ui && bun install
 
 start-test-k8s:
 	go run ./hack/k8s
