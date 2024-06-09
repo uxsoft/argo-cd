@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "license": "Apache-2.0",
   "scripts": {
-    "start": "webpack-dev-server --config ./src/app/webpack.config.js --mode development",
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "docker": "./scripts/build_docker.sh",
-    "build": "find ./dist -type f -not -name gitkeep -delete && webpack --config ./src/app/webpack.config.js --mode production",
+    "build": "find ./dist -type f -not -name gitkeep -delete && webpack --config ./webpack.config.js --mode production",
     "lint": "tsc --noEmit --project ./src/app && eslint",
     "lint:fix": "eslint --fix",
     "test": "jest"
